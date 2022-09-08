@@ -36,7 +36,7 @@ func main() {
 	}
 
 	// creating a URL
-	// we always pass a reference of URL
+	// we always pass a reference of url
 	partsOfUrl := &url.URL{
 		Scheme:   "http",
 		Host:     "lco.dev",
