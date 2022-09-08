@@ -10,6 +10,7 @@ import (
 func main() {
 	fmt.Println("GET & POST Requests in Golang")
 	PeformGetRequest()
+	PerformPostJsonRequest()
 }
 
 func PeformGetRequest() {
@@ -37,4 +38,29 @@ func PeformGetRequest() {
 	fmt.Println(responseString.String()) // responseString has the response now
 
 	fmt.Println(string(content)) // returns the same content
+}
+
+func PerformPostJsonRequest() {
+	const MYURL = "http://localhost:1111/post"
+
+	// json payload
+	requestBody := strings.NewReader(`
+		{
+			"coursename":"Learn golang",
+			"price":0,
+			"platform":"YouTube"
+		}
+	`)
+
+	response, err := http.Post(MYURL, "application/json", requestBody)
+	if err != nil {
+		panic(err)
+	}
+
+	// close the request once done
+	defer response.Body.Close()
+
+	content, _ := ioutil.ReadAll(response.Body)
+
+	fmt.Println(string(content))
 }
