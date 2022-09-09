@@ -1,0 +1,36 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type course struct {
+	Name     string `json:"coursename"` // renames Name as "coursename" in JSON
+	Price    int
+	Platform string   `jsonL"website"`        // renames Platform as "website" in JSON
+	Password string   `json:"-"`              // "-" caused password to not reflect in the JSON
+	Tags     []string `json:"tags,omitempty"` // omitempty removes the fields with nil from the JSON
+}
+
+func main() {
+	fmt.Println("Converting data into JSON in golang")
+	EncodeJSON()
+}
+
+func EncodeJSON() {
+	courses := []course{
+		{"React", 199, "Udemy", "abc", []string{"web-dev", "js"}},
+		{"Vue", 299, "Coursera", "def", []string{"full-stack", "js"}},
+		{"Angular", 399, "LCO", "ghi", nil},
+	}
+
+	// package the courses data as JSON
+	// MarshalIndent takes -> data, prefix, indent
+	finalJSON, err := json.MarshalIndent(courses, "", "\t") // we need to pass an interface (struct) into Marshaler
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%s\n", finalJSON)
+}
