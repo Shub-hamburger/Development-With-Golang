@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -11,6 +12,7 @@ func main() {
 	fmt.Println("GET & POST Requests in Golang")
 	PeformGetRequest()
 	PerformPostJsonRequest()
+	PerformPostFormRequest()
 }
 
 func PeformGetRequest() {
@@ -61,6 +63,31 @@ func PerformPostJsonRequest() {
 	defer response.Body.Close()
 
 	content, _ := ioutil.ReadAll(response.Body)
+
+	fmt.Println(string(content))
+}
+
+func PerformPostFormRequest() {
+	const MYURL = "http://localhost:1111/postform"
+
+	// create form data
+	data := url.Values{}
+	data.Add("firstname", "Shubham")
+	data.Add("lastname", "Raj")
+	data.Add("email", "shubham@go.dev")
+
+	response, err := http.PostForm(MYURL, data)
+	if err != nil {
+		panic(err)
+	}
+
+	// close request when done
+	defer response.Body.Close()
+
+	content, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		panic(err)
+	}
 
 	fmt.Println(string(content))
 }
