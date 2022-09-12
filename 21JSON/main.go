@@ -8,8 +8,8 @@ import (
 type course struct {
 	Name     string `json:"coursename"` // renames Name as "coursename" in JSON
 	Price    int
-	Platform string   `jsonL"website"`        // renames Platform as "website" in JSON
-	Password string   `json:"-"`              // "-" caused password to not reflect in the JSON
+	Platform string   `json:"website"`        // renames Platform as "website" in JSON
+	Password string   `json:"-"`              // "-" causes password to not reflect in the JSON
 	Tags     []string `json:"tags,omitempty"` // omitempty removes the fields with nil from the JSON
 }
 
