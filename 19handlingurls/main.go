@@ -25,6 +25,7 @@ func main() {
 
 	// getting query parameters
 	params := result.Query()                          // returns key, value pairs
+	fmt.Printf("The params are %v\n", params)         // The params are map[coursename:[reactjs] paymentid:[dddsfdsf]]
 	fmt.Printf("The type of params is: %T\n", params) // url.Values
 
 	fmt.Println(params["coursename"]) // [reactjs]
