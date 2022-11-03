@@ -120,6 +120,14 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("No data inside")
 	}
 
+	// if course title already exists
+	for _, currCourse := range courses {
+		if currCourse.CourseName == course.CourseName {
+			// don't add the new course
+			json.NewEncoder(w).Encode("Course already exists")
+		}
+	}
+
 	// generate a unique id
 	rand.Seed(time.Now().UnixNano())
 	course.CourseId = strconv.Itoa(rand.Intn(100))
